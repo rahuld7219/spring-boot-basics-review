@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd" -->
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rudimentary Chat</title>
+</head>
+<body>
+<form action="#" th:action="@{'/chat'}" th:object="${chatForm}" method="POST">
+<!--    <label for="username">Username:</label>-->
+<!--    <input id="username" type="text" th:field="*{username}">--> <!-- used before using login feature (using spring security)  -->
+    <label for="messageText">Message Text:</label>
+    <input id="messageText" type="text" th:field="*{messageText}">
+    <label for="messageType">Message Type: </label>
+    <!--    <select id="messageType" th:field="*{messageType}">-->
+    <!--        <option selected th:value="Say">Say</option>-->
+    <!--        <option th:value="Shout">Shout</option>-->
+    <!--        <option th:value="Whisper">Whisper</option>-->
+    <!--    </select>-->
+    <select id="messageType" th:field="*{messageType}">
+        <option
+                th:each="type : ${allMessageTypes}"
+                th:value="${type}"
+                th:text="${type}"
+        >
+            Say
+        </option>
+    </select>
+    <input id="submit-button" type="submit">
+</form>
+<div th:each="chatMessage : ${chatMessages}">
+    <span class="chatMessageUsername" th:text="${chatMessage.username}"></span>: <span class="chatMessageText" th:text="${chatMessage.messageText}"></span>
+</div>
+</body>
+</html>
